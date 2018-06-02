@@ -1,21 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>berita harian</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
-    <script>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+  <style>
+    /* Remove the navbar's default rounded borders and increase the bottom margin */ 
+    .navbar {
+      background-color: black;
+      margin-bottom: 50px;
+      border-radius: 0;
+      text-align: center;
+    }
+    
+    /* Remove the jumbotron's default bottom margin */ 
+     .jumbotron {
+      margin-bottom: 0;
+    }
+   
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+  </style>
+  <script>
     var app = angular.module("myApp", ["ngRoute"]);
     app.config(function($routeProvider) {
     $routeProvider
     .when("/", {
-        templateUrl : "home.htm"
+        templateUrl : "home.htm", controller:'allCtrl'
     })
     .when("/sports", {
         templateUrl : "sports.htm"
@@ -25,35 +47,52 @@
     })
     .when("/technology", {
         templateUrl : "technology.htm"
+    })
+    .when("/contact", {
+        templateUrl : "contact.htm"
+    });  
+  });
+    app.controller('allCtrl',function($scope, $http){
+        var url = 'http://api.openweathermap.org/data/2.5/weather?q=sleman,uk&appid=4de4dd041e499ca8a4f6692097befdae';$http.get(url).then(function(response){
+            $scope.info=response.data;
     });
-});
-</script>
+    $scope.feel="don't make my cray";
+    $scope.message="can you give me your life";});
+  </script>
 </head>
 <body>
-    <div class="container" ng-app="myApp">
-        <!-- ROW 1 : HEADER -->
-        <div class="row" style="background: #008080; color: black">
-            <div class="col-sm-12">
-                <h1>BERITA KELUARGA</h1>
-                <a href="#/!">Home</a>::
-                <a href="#!sports">sports</a>::
-                <a href="#!health">health</a>::
-                <a href="#!technology">technology</a>::
-            </div>
-        </div>
-        <!-- ROW 2 : ARTICEL -->
-        <div class="row">
-            <div class="col-sm-12">
-                <h1>Dapatkan wawasan sebanyak banyaknya</h1>
-                <ng-view></ng-view>
-            </div>
-        </div>
-        <!-- ROW 3: FOOTER -->
-        <div class="row" style="background: #008080; color: white">
-            <div class="col-sm-12">
-                <p>&copf;2017 be health</p>
-            </div>
-        </div>
+<div class="container-fluid" ng-app="myApp">
+    <div class="container-fluid, jumbotron">
+      <h1><i class="fa fa-cloud" style="font-size: 36px"></i>_CLOUD.com</h1>     
+      <p>news of family</p>  
     </div>
+
+  <nav class="navbar navbar-default">
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav text-center">
+        <li><a href="#/!">Home</a></li>
+        <li><a href="#!sports">sports</a></li>
+        <li><a href="#!health">health</a></li>
+        <li><a href="#!technology">technology</a></li>
+        <li><a href="#!contact">contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">    
+   <div class="row">
+     <div class="col-sm-12">
+       <ng-view></ng-view>
+     </div>
+    </div>
+  </div>
+
+  <footer class="container-fluid text-center"> 
+      <form class="form-inline">Get deals:
+        <input type="email" class="form-control" size="50" placeholder="search">
+        <button type="button" class="btn btn-danger">Sign Up</button>
+      </form>
+  </footer>
+</div>
 </body>
 </html>
