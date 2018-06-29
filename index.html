@@ -12,8 +12,27 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+  <script>
+window.onscroll = function() {myFunction()};
+
+var navbar = document.getElementById("myNavbar");
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+</script>
   <style>
-    /* Remove the navbar's default rounded borders and increase the bottom margin */ 
+     header{
+        background-color: black;
+        margin-bottom: 0;
+        height: 400%;
+     }
+
     .navbar {
       background-color: black;
       margin-bottom: 50px;
@@ -21,61 +40,101 @@
       text-align: center;
     }
     
-    /* Remove the jumbotron's default bottom margin */ 
-     .jumbotron {
-      margin-bottom: 0;
-    }
-   
-    /* Add a gray background color and some padding to the footer */
     footer {
       background-color: #f2f2f2;
       padding: 25px;
+      margin-top: 50px;
     }
+    sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 60px;
   </style>
   <script>
     var app = angular.module("myApp", ["ngRoute"]);
     app.config(function($routeProvider) {
     $routeProvider
     .when("/", {
-        templateUrl : "home.htm", controller:'allCtrl'
+        templateUrl : "home.htm", 
+        controller:'allCtrl'
     })
     .when("/sports", {
-        templateUrl : "sports.htm"
+        templateUrl : "sports.htm",
+        controller : "sportCtrl"
+
     })
     .when("/health", {
-        templateUrl : "health.htm"
+        templateUrl : "health.htm",
+        controller : "healthCtrl"
     })
     .when("/technology", {
-        templateUrl : "technology.htm"
+        templateUrl : "technology.htm",
+        controller : "technologyCtrl"
     })
     .when("/contact", {
         templateUrl : "contact.htm"
     });  
   });
-    app.controller('allCtrl',function($scope, $http){
-        var url = 'http://api.openweathermap.org/data/2.5/weather?q=sleman,uk&appid=4de4dd041e499ca8a4f6692097befdae';$http.get(url).then(function(response){
-            $scope.info=response.data;
-    });
-    $scope.feel="don't make my cray";
-    $scope.message="can you give me your life";});
+    //home
+    app.controller("allCtrl", function($scope, $http) {
+    $http.get('https://newsapi.org/v2/top-headlines?country=id&apiKey=abc6036fe98247caa70b20e45faea850')
+       .then(function(result){
+          $scope.datas = result.data.articles;                
+        });
+      });
+    //sports
+    app.controller("sportCtrl", function($scope, $http) {
+    $http.get('https://newsapi.org/v2/top-headlines?country=id&category=sports&apiKey=abc6036fe98247caa70b20e45faea850')
+       .then(function(result){
+          $scope.datas = result.data.articles;                
+        });
+      });
+    //health
+     app.controller("healthCtrl", function($scope, $http) {
+    $http.get('https://newsapi.org/v2/top-headlines?country=id&category=health&apiKey=abc6036fe98247caa70b20e45faea850')
+       .then(function(result){
+          $scope.datas = result.data.articles;                
+        });
+      });
+     //technology
+    app.controller("technologyCtrl", function($scope, $http) {
+    $http.get('https://newsapi.org/v2/top-headlines?country=id&category=technology&apiKey=abc6036fe98247caa70b20e45faea850')
+       .then(function(result){
+          $scope.datas = result.data.articles;                
+        });
+      });
   </script>
 </head>
 <body>
 <div class="container-fluid" ng-app="myApp">
-    <div class="container-fluid, jumbotron">
-      <h1><i class="fa fa-cloud" style="font-size: 36px"></i>_CLOUD.com</h1>     
-      <p>news of family</p>  
-    </div>
+    <header class="container-fluid">
+      <h1 style="color: white;">CLOUD.com</h1>     
+      <p style="font-size: 100%">JERNIH MELIHAT DUNIA</p> 
+    </header>
 
   <nav class="navbar navbar-default">
     <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav text-center">
+      <ul class="nav navbar-nav text-center ">
         <li><a href="#/!">Home</a></li>
         <li><a href="#!sports">sports</a></li>
         <li><a href="#!health">health</a></li>
         <li><a href="#!technology">technology</a></li>
         <li><a href="#!contact">contact</a></li>
       </ul>
+         <form class="navbar-form navbar-right" role="search">
+          <div class="form-group input-group">
+            <input type="text" class="form-control" placeholder="Search..">
+              <span class="input-group-btn">
+              <button class="btn btn-default" type="button">
+              <span class="glyphicon glyphicon-search"></span>
+              </button>
+              </span>        
+          </div>
+      </form>
     </div>
   </nav>
 
@@ -88,10 +147,7 @@
   </div>
 
   <footer class="container-fluid text-center"> 
-      <form class="form-inline">Get deals:
-        <input type="email" class="form-control" size="50" placeholder="search">
-        <button type="button" class="btn btn-danger">Sign Up</button>
-      </form>
+    <p>Copyright &copy; 2018 - All Rights Reserved</p>
   </footer>
 </div>
 </body>

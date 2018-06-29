@@ -1,26 +1,14 @@
-<h1>technology</h1>
-<div class="container">    
+<section ng-repeat="x in datas">
+  <section class="margin-content">
+  <div class="container">
     <div class="row">
-      <div class="col-sm-4">
-        <div class="panel panel-primary">
-          <div class="panel-heading">BLACK FRIDAY DEAL</div>
-          <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-        </div>
+      <div class="col-md-4">
+        <img ng-src="{{x.urlToImage}}" class="img-thumbnail"  style="width:400px;height:auto;border-radius: 15px;">
       </div>
-      <div class="col-sm-4"> 
-        <div class="panel panel-primary">
-          <div class="panel-heading">BLACK FRIDAY DEAL</div>
-          <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-        </div>
-      </div>
-      <div class="col-sm-4"> 
-        <div class="panel panel-primary">
-          <div class="panel-heading">BLACK FRIDAY DEAL</div>
-          <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-        </div>
+      <div class="col-md-8">
+        <p>{{x.description}}</p>
       </div>
     </div>
-</div>
+  </div>
+</section>
+</section>
